@@ -143,5 +143,14 @@ namespace server
             services.updateContact(owner, id);
         }
 
+
+
+        [HttpPost("connect")]
+        public List<Contact>? Connect(string id, string name, string server)
+        {
+            addContact(id, name, server);
+            return GetContacts();
+        }
+
     }
 }
