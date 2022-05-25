@@ -1,5 +1,6 @@
+
 using Microsoft.AspNetCore.Session;
-using web_api.Hubs;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,7 +60,7 @@ app.UseCookiePolicy(
             Secure = CookieSecurePolicy.Always
         });
 // Configure the HTTP request pipeline.
-/*app.UseCors("Allow All");*/
+
 app.UseCors("cors_policy");
 app.UseCors("ClientPermission");
 

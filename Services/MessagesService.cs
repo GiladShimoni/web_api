@@ -106,6 +106,7 @@ namespace Services
                             contact.messages.Add(msg);
                             contact.lastdate = msg.created;
                             contact.last = msg.content;
+                            DB.Messages.Add(new rMessages() { msg = msg.content, reciever = contact.id, sender = owner, time = msg.created });
                         }
                     }
                 }

@@ -1,4 +1,4 @@
-﻿/*#nullable disable
+﻿#nullable disable
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace server
             if (owner == null)
                 return null;*/
 
-           /* return services.GetContact(connectedUser, id);
+            return services.GetContact(connectedUser, id);
         }
 
 
@@ -37,7 +37,7 @@ namespace server
             if (owner == null)
                 return null;*/
 
-           /* return services.getContacts(connectedUser);
+            return services.getContacts(connectedUser);
         }
 
         [HttpPost]
@@ -47,7 +47,7 @@ namespace server
                 return;*/
 
 
-           /* Contact contact = new Contact();
+            Contact contact = new Contact();
             contact.id = id;
             contact.name = name;
             contact.server = server;
@@ -62,7 +62,7 @@ namespace server
             if (owner == null)
                 return;*/
 
-           /* Contact contact = GetContact(id, connectedUser);
+            Contact contact = GetContact(id, connectedUser);
             if (contact == null)
                 return; 
 
@@ -82,7 +82,7 @@ namespace server
             if (owner == null)
                 return;*/
 
-            /*services.deleteContact(connectedUser, id);
+            services.deleteContact(connectedUser, id);
         }
 
 
@@ -90,13 +90,13 @@ namespace server
         //*** Messages ***/
 
 
-        /*[HttpGet("{id}/messages")]
+        [HttpGet("{id}/messages")]
         public List<message>? GetMessages(string id, string connectedUser) {
 /*            string? owner = HttpContext.Session.GetString("id");
             if (owner == null)
                 return null;*/
 
-            /*return messages.GetMessages(connectedUser, id);
+            return messages.GetMessages(connectedUser, id);
         }
 
         [HttpPost("{id}/messages")]
@@ -105,7 +105,7 @@ namespace server
             if (owner == null)
                 return;*/
 
-           /* int msgId = services.getMsgId(connectedUser, id);
+            int msgId = services.getMsgId(connectedUser, id);
             message msg = new message { id = msgId, content = content , created = DateTime.Now, sent = true};
             messages.SendMessage(connectedUser, id, msg);
         
@@ -119,7 +119,7 @@ namespace server
             if (owner == null)
                 return null;*/
 
-          /*  return messages.GetMessage(connectedUser, id, msgId);
+            return messages.GetMessage(connectedUser, id, msgId);
         }
 
         [HttpPut("{id}/messages/{msgId}")]
@@ -129,7 +129,7 @@ namespace server
             if (owner == null)
                 return;*/
 
-          /*  messages.Edit(connectedUser, id, msgId, content);
+            messages.Edit(connectedUser, id, msgId, content);
             services.updateContact(connectedUser, id);
 
         }
@@ -140,7 +140,7 @@ namespace server
             if (owner == null)
                 return;*/
 
-          /*  messages.Delete(connectedUser, id, msgId);
+            messages.Delete(connectedUser, id, msgId);
             services.updateContact(connectedUser, id);
         }
 
@@ -152,11 +152,19 @@ namespace server
             addContact(id, name, server, connectedUser);
             return GetContacts(connectedUser);
         }
-          }
 
-    }*/
+        [HttpGet("getAllMessages")]
+        public List<rMessages> GetAllMsgs()
+        {
+            return DB.Messages.ToList();
 
- #nullable disable
+        }
+    }
+
+
+    }
+
+/* #nullable disable
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -247,10 +255,10 @@ namespace server
 
 
 
-        //*** Messages ***//
+        //*** Messages ***/
 
 
-        [HttpGet("{id}/messages")]
+       /* [HttpGet("{id}/messages")]
         public List<message>? GetMessages(string id)
         {
             string? owner = HttpContext.Session.GetString("id");
@@ -317,4 +325,4 @@ namespace server
         }
 
     }
-}
+}*/
