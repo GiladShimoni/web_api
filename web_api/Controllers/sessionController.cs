@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Domain;
 using Services;
-
 namespace web_api.Controllers
 {
     [ApiController]
@@ -9,20 +8,18 @@ namespace web_api.Controllers
     public class sessionController : ControllerBase
     {
 
-        [HttpPost("{id}")]
+        [HttpPost]
         public void Login(string id)
         {
             HttpContext.Session.SetString("id", id);
         }
 
-
         [HttpGet]
-        public User? GetOwner()
-        {
-            string? owner = HttpContext.Session.GetString("id");
-            if (owner == null)
+        public User? getOwner() {
+            string? id = HttpContext.Session.GetString("id");
+            if(id == null)
                 return null;
-            return new UserService().GetUser(owner) ;
+            return new UserService().GetUser(id);
         }
     }
 }
