@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Domain;
 using Services;
+
 namespace web_api.Controllers
 {
     [ApiController]
@@ -15,11 +16,12 @@ namespace web_api.Controllers
         }
 
         [HttpGet]
-        public User? getOwner() {
-            string? id = HttpContext.Session.GetString("id");
-            if(id == null)
+        public User? GetOwner()
+        {
+            string? owner = HttpContext.Session.GetString("id");
+            if (owner == null)
                 return null;
-            return new UserService().GetUser(id);
+            return new UserService().GetUser(owner) ;
         }
     }
 }
