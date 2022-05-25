@@ -18,9 +18,14 @@ namespace Services
 
         public User? GetUser(string id)
         {
-            return DB.Users.Find( x => x.id == id );
+            return (DB.Users.Find(x => x.id == id));
 
         }
+       /* public User? GetUserByName(string name)
+        {
+            return (DB.Users.Find(x => x.name == name));
+
+        }*/
 
         public List<User> GetUsers()
         {

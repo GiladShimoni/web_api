@@ -32,6 +32,12 @@ namespace server
             return services.GetUser(id);
         }
 
+/*        [HttpGet("{name}")]
+        public User DetailsByName(string name)
+        {
+            return services.GetUserByName(name);
+        }*/
+
 
         [HttpPost]
         public void Create(string id, string name, string? profile, string? password)
