@@ -1,4 +1,4 @@
-﻿/*#nullable disable
+﻿#nullable disable
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +22,11 @@ namespace server
         [HttpGet("{id}")]
         public Contact? GetContact(string id, string connectedUser) {
             /*string? owner = HttpContext.Session.GetString("id");*/
-/*            string? owner = 
-            if (owner == null)
-                return null;*/
+            /*            string? owner = 
+                        if (owner == null)
+                            return null;*/
 
-           /* return services.GetContact(connectedUser, id);
+            return services.GetContact(connectedUser, id);
         }
 
 
@@ -37,7 +37,7 @@ namespace server
             if (owner == null)
                 return null;*/
 
-           /* return services.getContacts(connectedUser);
+            return services.getContacts(connectedUser);
         }
 
         [HttpPost]
@@ -47,7 +47,7 @@ namespace server
                 return;*/
 
 
-           /* Contact contact = new Contact();
+            Contact contact = new Contact();
             contact.id = id;
             contact.name = name;
             contact.server = server;
@@ -58,31 +58,31 @@ namespace server
 
         [HttpPut("{id}")]
         public void EditContact(string id, string? name, string? server, string connectedUser) {
-/*            string? owner = HttpContext.Session.GetString("id");
-            if (owner == null)
-                return;*/
+            /*            string? owner = HttpContext.Session.GetString("id");
+                        if (owner == null)
+                            return;*/
 
-           /* Contact contact = GetContact(id, connectedUser);
+            Contact contact = GetContact(id, connectedUser);
             if (contact == null)
-                return; 
+                return;
 
-            if(name != null)
+            if (name != null)
                 contact.name = name;
 
             if (server != null)
                 contact.server = server;
 
-            services.editContact(connectedUser,id, contact);
+            services.editContact(connectedUser, id, contact);
         }
 
         [HttpDelete]
         public void Remove(string id, string connectedUser)
         {
-/*            string? owner = HttpContext.Session.GetString("id");
-            if (owner == null)
-                return;*/
+            /*            string? owner = HttpContext.Session.GetString("id");
+                        if (owner == null)
+                            return;*/
 
-            /*services.deleteContact(connectedUser, id);
+            services.deleteContact(connectedUser, id);
         }
 
 
@@ -90,57 +90,57 @@ namespace server
         //*** Messages ***/
 
 
-        /*[HttpGet("{id}/messages")]
+        [HttpGet("{id}/messages")]
         public List<message>? GetMessages(string id, string connectedUser) {
-/*            string? owner = HttpContext.Session.GetString("id");
-            if (owner == null)
-                return null;*/
+            /*            string? owner = HttpContext.Session.GetString("id");
+                        if (owner == null)
+                            return null;*/
 
-            /*return messages.GetMessages(connectedUser, id);
+            return messages.GetMessages(connectedUser, id);
         }
 
         [HttpPost("{id}/messages")]
         public void Send(string id, string content, string connectedUser) {
-/*            string? owner = HttpContext.Session.GetString("id");
-            if (owner == null)
-                return;*/
+            /*            string? owner = HttpContext.Session.GetString("id");
+                        if (owner == null)
+                            return;*/
 
-           /* int msgId = services.getMsgId(connectedUser, id);
-            message msg = new message { id = msgId, content = content , created = DateTime.Now, sent = true};
+            int msgId = services.getMsgId(connectedUser, id);
+            message msg = new message { id = msgId, content = content, created = DateTime.Now, sent = true };
             messages.SendMessage(connectedUser, id, msg);
-        
+
         }
 
 
         [HttpGet("{id}/messages/{msgId}")]
         public message? GetMessage(string id, int msgId, string connectedUser)
         {
-/*            string? owner = HttpContext.Session.GetString("id");
-            if (owner == null)
-                return null;*/
+            /*            string? owner = HttpContext.Session.GetString("id");
+                        if (owner == null)
+                            return null;*/
 
-          /*  return messages.GetMessage(connectedUser, id, msgId);
+            return messages.GetMessage(connectedUser, id, msgId);
         }
 
         [HttpPut("{id}/messages/{msgId}")]
         public void Edit(string id, int msgId, string content, string connectedUser)
         {
-/*            string? owner = HttpContext.Session.GetString("id");
-            if (owner == null)
-                return;*/
+            /*            string? owner = HttpContext.Session.GetString("id");
+                        if (owner == null)
+                            return;*/
 
-          /*  messages.Edit(connectedUser, id, msgId, content);
+            messages.Edit(connectedUser, id, msgId, content);
             services.updateContact(connectedUser, id);
 
         }
 
         [HttpDelete("{id}/messages/{msgId}")]
         public void Delete(string id, int msgId, string connectedUser) {
-/*            string? owner = HttpContext.Session.GetString("id");
-            if (owner == null)
-                return;*/
+            /*            string? owner = HttpContext.Session.GetString("id");
+                        if (owner == null)
+                            return;*/
 
-          /*  messages.Delete(connectedUser, id, msgId);
+            messages.Delete(connectedUser, id, msgId);
             services.updateContact(connectedUser, id);
         }
 
@@ -152,10 +152,10 @@ namespace server
             addContact(id, name, server, connectedUser);
             return GetContacts(connectedUser);
         }
-          }
 
-    }*/
-
+    }
+}
+/*
  #nullable disable
 using System;
 using System.Collections.Generic;
@@ -247,10 +247,10 @@ namespace server
 
 
 
-        //*** Messages ***//
+        //*** Messages ***/
 
 
-        [HttpGet("{id}/messages")]
+        /*[HttpGet("{id}/messages")]
         public List<message>? GetMessages(string id)
         {
             string? owner = HttpContext.Session.GetString("id");
@@ -317,4 +317,4 @@ namespace server
         }
 
     }
-}
+}*/
