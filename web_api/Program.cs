@@ -1,4 +1,5 @@
 
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.Session;
 
 
@@ -51,9 +52,6 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
-
-
-
 app.UseCookiePolicy(
         new CookiePolicyOptions
         {
@@ -78,7 +76,6 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 app.UseSession();
 app.MapControllers();
-
 /*app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<MyHub>("/myHub");

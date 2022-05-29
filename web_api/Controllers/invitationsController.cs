@@ -5,7 +5,7 @@ using Domain;
 namespace web_api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class invitationsController : ControllerBase
     { 
         private IContactService _contactService = new ContactService();

@@ -5,23 +5,25 @@ using Services;
 namespace web_api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class sessionController : ControllerBase
     {
 
-        [HttpPost]
-        public void Login(string id)
+        [HttpGet]
+        public string Login(string id)
         {
             HttpContext.Session.SetString("id", id);
+            return "added";
+
         }
 
-        [HttpGet]
+       /* [HttpGet]
         public User? GetOwner()
         {
             string? owner = HttpContext.Session.GetString("id");
             if (owner == null)
                 return null;
             return new UserService().GetUser(owner) ;
-        }
+        }*/
     }
 }

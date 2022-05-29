@@ -12,7 +12,7 @@ using Reposetory;
 namespace server
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
         private IUserService services = new UserService();
@@ -75,6 +75,21 @@ namespace server
         public void Remove(string id)
         {
             services.Remove(id);
+        }
+
+
+        [HttpPost("Register")]
+        public string Register(string id, string name, string password, string profilePic) {
+            User? usr = services.GetUser(id);
+            if (usr != null)
+                return "Name is Taken, please choose a diffrent one";
+
+            if (profilePic == null)
+                profilePic = "desult user.png";
+
+            User user = new User() { id = id, name = name, password = password, profiePic = profilePic, Contacts = new List<Contact>(), server = "localhost"};
+            services.AddUser(user);
+            return "Success";
         }
 
 

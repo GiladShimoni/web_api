@@ -4,7 +4,7 @@ using Domain;
 namespace web_api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class transferController : Controller
     {
         private IMessagesService service = new MessagesService();
