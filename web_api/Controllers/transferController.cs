@@ -19,7 +19,7 @@ namespace web_api.Controllers
                 created = DateTime.Now,
                 sent = false
             };
-            service.SendMessage(to , from,  msg); 
+            service.SendMessage(from , to,  msg); 
         }
         
     }

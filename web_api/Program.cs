@@ -1,7 +1,7 @@
 
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.Session;
-
+using web_api.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,16 +12,16 @@ builder.Services.AddSignalR();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSession(options =>
+/*builder.Services.AddSession(options =>
 {
     options.Cookie.IsEssential = true;
     options.Cookie.HttpOnly = false;
     options.Cookie.SameSite = SameSiteMode.None;
     options.IdleTimeout = TimeSpan.FromMinutes(30);
-});
+});*/
 builder.Services.AddSession(
     options => { options.IdleTimeout = TimeSpan.FromMinutes(5); });
-/*builder.Services.AddCors(options =>
+builder.Services.AddCors(options =>
 {
     options.AddPolicy("Allow All",
         builder =>
@@ -31,9 +31,16 @@ builder.Services.AddSession(
             .AllowAnyHeader();
         });
 
-});*/
+});
 builder.Services.AddCors(options =>
 {
+    /*options.AddPolicy("ClientPermission", policy =>
+    {
+        policy.AllowAnyHeader()
+            .AllowAnyMethod()
+            .WithOrigins("http://localhost:3000")
+            .AllowCredentials();
+    });*/
     options.AddDefaultPolicy(builder =>
     {
         builder.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
@@ -43,25 +50,20 @@ builder.Services.AddCors(options =>
 {
     // options.AddDefaultPolicy(policy => policy.AllowAnyOrigin());
 
-    options.AddPolicy("cors_policy",
+    options.AddPolicy("Allow All",
     builder =>
     {
-        builder.WithOrigins("http://localhost:3003").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+        builder.WithOrigins("http://localhost:3001").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
         builder.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
     });
 });
 
 var app = builder.Build();
-app.UseCookiePolicy(
-        new CookiePolicyOptions
-        {
-            Secure = CookieSecurePolicy.Always
-        });
+
+
 // Configure the HTTP request pipeline.
 
-app.UseCors("cors_policy");
-app.UseCors("ClientPermission");
-
+app.UseCors("Allow All");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
@@ -74,10 +76,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthorization();
+app.UseHttpsRedirection();
 app.UseSession();
 app.MapControllers();
-/*app.UseEndpoints(endpoints =>
+app.UseRouting();
+app.UseEndpoints(endpoints =>
 {
-    endpoints.MapHub<MyHub>("/myHub");
-});*/
+    endpoints.MapControllers();
+    endpoints.MapHub<ChatHub>("/Hubs/ChatHub");
+});
 app.Run();

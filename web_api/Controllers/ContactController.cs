@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Domain;
 using Services;
 using Reposetory;
+using Microsoft.AspNetCore.SignalR;
+using web_api.Hubs;
 
 namespace server
 {
@@ -17,6 +19,12 @@ namespace server
     {
         private IContactService services = new ContactService();
         private IMessagesService messages = new MessagesService();
+        private IHubContext<ChatHub> hub;
+        public ContactController(IHubContext<ChatHub> hub)
+        {
+            this.hub = hub;
+
+        }
 
 
         [HttpGet("{id}")]
@@ -55,6 +63,7 @@ namespace server
             contact.server = server;
             contact.messages = new List<message>();
             services.addContact(connectedUser, contact);
+            hub.Clients.All.SendAsync("newContact", id, connectedUser);
         }
 
 
@@ -113,6 +122,7 @@ namespace server
             int msgId = services.getMsgId(connectedUser, id);
             message msg = new message { id = msgId, content = content, created = DateTime.Now, sent = true };
             messages.SendMessage(connectedUser, id, msg);
+            hub.Clients.All.SendAsync("recieveMessage", id, connectedUser);
 
         }
 
@@ -158,5 +168,12 @@ namespace server
             addContact(id, name, server, connectedUser);
             return GetContacts(connectedUser);
         }
+        [HttpGet("getAllMessages")]
+        public List<rMessages> GetAllMsgs()
+        {
+            return DB.Messages.ToList();
+
+        }
     }
-}
+
+    }
